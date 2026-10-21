@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 Birthday Wishes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== CONFETTI CANVAS ========== -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ========== BALLOONS ========== -->
+  <div id="balloonsContainer"></div>
+
+  <!-- ========== FIREWORKS ========== -->
+  <div id="fireworksContainer"></div>
+
+  <!-- ========== WELCOME SCREEN ========== -->
+  <div id="welcomeScreen" class="screen active">
+    <div class="welcome-card">
+      <div class="welcome-emoji">🎂</div>
+      <h1 class="welcome-title">Let's Celebrate a Birthday! 🎉</h1>
+      <p class="welcome-subtitle">Enter a name and we'll create a magical celebration!</p>
+      <div class="input-group">
+        <input
+          type="text"
+          id="nameInput"
+          class="name-input"
+          placeholder="Enter birthday person's name..."
+          maxlength="40"
+          autocomplete="off"
+        />
+        <div id="inputError" class="input-error hidden">⚠️ Please enter a name to celebrate!</div>
+      </div>
+      <button id="celebrateBtn" class="btn btn-celebrate" onclick="startCelebration()">
+        CELEBRATE 🎂
+      </button>
+      <div class="deco-row">
+        <span>🌟</span><span>🎈</span><span>🎁</span><span>🎊</span><span>🌟</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CELEBRATION SCREEN ========== -->
+  <div id="celebrationScreen" class="screen">
+
+    <!-- Floating stars background -->
+    <div id="starsContainer"></div>
+
+    <!-- Main Card -->
+    <div class="celebration-card">
+
+      <!-- Header -->
+      <div class="birthday-header">
+        <div class="header-emojis">🎉 🎊 🎉</div>
+        <h1 class="birthday-title">HAPPY BIRTHDAY,</h1>
+        <h2 class="birthday-name" id="birthdayName">NAME</h2>
+        <div class="header-emojis">🎂 🎈 🎂</div>
+      </div>
+
+      <!-- ===== SHAKE HINT BANNER ===== -->
+      <div id="shakeHint" class="shake-hint">
+        <div class="shake-phone-icon" id="shakePhoneIcon">📱</div>
+        <div class="shake-hint-text">
+          <strong>Shake your device</strong> to blow out the candles! 🕯️
+          <br><span class="shake-sub">( or tap the button below on desktop )</span>
+        </div>
+      </div>
+
+      <!-- Blow button (desktop fallback) -->
+      <button id="blowBtn" class="btn btn-blow" onclick="blowOutCandles()">
+        💨 BLOW OUT CANDLES
+      </button>
+
+      <!-- Cake -->
+      <div class="cake-wrapper">
+        <div class="cake" id="cake">
+          <!-- Candles -->
+          <div class="candles">
+            <div class="candle"><div class="flame" id="flame1"></div><div class="smoke" id="smoke1"></div></div>
+            <div class="candle tall"><div class="flame" id="flame2"></div><div class="smoke" id="smoke2"></div></div>
+            <div class="candle"><div class="flame" id="flame3"></div><div class="smoke" id="smoke3"></div></div>
+            <div class="candle tall"><div class="flame" id="flame4"></div><div class="smoke" id="smoke4"></div></div>
+            <div class="candle"><div class="flame" id="flame5"></div><div class="smoke" id="smoke5"></div></div>
+          </div>
+          <!-- Cake layers -->
+          <div class="cake-top"><div class="cake-frosting"></div></div>
+          <div class="cake-middle"><div class="cake-middle-deco">💖</div></div>
+          <div class="cake-bottom"><div class="cake-bottom-deco">🌸 Happy Birthday 🌸</div></div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <!-- Candles blown celebration -->
+      <div id="candlesBlownMsg" class="candles-blown-msg hidden">
+        🎊 Candles blown out! Your wish is on its way! 🌟
+      </div>
+
+      <!-- Message -->
+      <div class="message-box">
+        <p class="birthday-message" id="birthdayMessage"></p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-grid">
+        <button class="btn btn-wish" onclick="makeAWish()">MAKE A WISH ✨</button>
+        <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 BIRTHDAY SONG</button>
+        <button class="btn btn-share" onclick="shareWish()">SHARE WISH 💌</button>
+        <button class="btn btn-reset" onclick="resetCelebration()">CELEBRATE ANOTHER 🔄</button>
+      </div>
+
+      <!-- Wish result -->
+      <div id="wishResult" class="wish-result hidden">
+        <span id="wishText"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== WISH OVERLAY ========== -->
+  <div id="wishOverlay" class="wish-overlay hidden">
+    <div class="wish-overlay-content">
+      <div class="wish-stars" id="wishStars"></div>
+      <div class="wish-icon">🌟</div>
+      <h2>Your Wish Has Been Made!</h2>
+      <p id="wishOverlayText"></p>
+      <button class="btn btn-wish" onclick="closeWishOverlay()">Close ✨</button>
+    </div>
+  </div>
+
+  <!-- ========== CANDLES BLOWN OVERLAY ========== -->
+  <div id="blownOverlay" class="wish-overlay hidden">
+    <div class="wish-overlay-content blown-overlay-content">
+      <div class="wish-stars" id="blownStars"></div>
+      <div class="wish-icon blown-icon" id="blownIcon">🎊</div>
+      <h2 id="blownTitle">Candles Blown Out!</h2>
+      <p id="blownOverlayText"></p>
+      <button class="btn btn-celebrate" style="margin-top:0" onclick="closeBlownOverlay()">🎉 Let's Party!</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
